@@ -7,7 +7,7 @@ import java.util.Random;
 
 /**
  * This class is used to represent the map.
- * The map is a 100x100 2D boolean array.
+ * The map is a square 2D boolean array.
  * When a cell is set to True there is an obstacle
  * in that coordinate.
  * It uses a singleton design pattern because there is just one map of
