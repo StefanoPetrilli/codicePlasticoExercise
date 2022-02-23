@@ -13,7 +13,7 @@ public class Constants {
      * -1 % 100 == -1 (programming module)
      * so I implemented the algebraic module myself.
      *
-     * @param i we want to knoe the module of i
+     * @param i we want to know the module of i
      * @return the algebraic module of i
      */
     public static int moduleDimension(int i) {
