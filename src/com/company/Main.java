@@ -17,12 +17,95 @@ Requirements
   up to the last possible point, aborts the sequence and reports the obstacle.
 */
 
+import org.testng.annotations.Test;
+
+import static org.testng.AssertJUnit.assertEquals;
+import static org.testng.AssertJUnit.fail;
+
 public class Main {
+
+    /**
+     * If the input is null an error is thrown
+     */
+    @Test
+    public void nullInput(){
+        try {
+            Rover r1 = new Rover(Direction.NORTH, 10, 10);
+            r1.execute(null);
+
+        } catch (Exception e) {
+            return;
+        }
+        fail("No exception thrown");
+    }
+
+    /**
+     * Contains illegal character
+     */
+    @Test
+    public void illegalInput(){
+        try {
+            Rover r1 = new Rover(Direction.NORTH, 10, 10);
+            r1.execute("eee");
+        } catch (Exception e) {
+            return;
+        }
+        fail("No exception thrown");
+    }
+
+    /**
+     * If the rover keeps moving will find an obstacle
+     */
+    @Test
+    public void obstacleEncounter(){
+        try {
+            Rover r1 = new Rover(Direction.NORTH, 10, 10);
+            for (int i = 0; i < 100000; i++) {
+                r1.execute("frffl");
+            }
+        } catch (Exception e) {
+            return;
+        }
+        fail("No obstacle encounteres, very unlikely!");
+    }
+
+    /**
+     * If the rover rotate 4 times to left and 4 to right
+     * in in the ned will be in the initial direction.
+     */
+    @Test
+    public void illegalRotation(){
+        try {
+            Rover r1 = new Rover(Direction.NORTH, 10, 10);
+            r1.execute("rrrrllll");
+            assertEquals(r1.getDirection(), Direction.NORTH);
+        } catch (Exception e) {
+            return;
+        }
+        fail("No exception thrown");
+    }
+
+    /**
+     * If a rover tries to move on a location where there is another rover an
+     * error is thrown.
+     */
+    @Test
+    public void occupiedPosition(){
+        try {
+            Rover r1 = new Rover(Direction.NORTH, 10, 10);
+            Rover r2 = new Rover(Direction.NORTH, 9, 10);
+            r1.execute("f");
+        } catch (Exception e) {
+            return;
+        }
+        fail("No exception thrown");
+    }
+
 
     public static void main(String[] args) {
         try {
             Rover r1 = new Rover(Direction.NORTH, 10, 10);
-            r1.execute("ffflrbeffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff");
+            while (true) r1.execute("f");
         } catch (Exception e) {
             e.printStackTrace();
         }
